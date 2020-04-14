@@ -82,8 +82,8 @@ march_ect_comparison_chart <- march_ect_comparison %>%
   geom_col() + 
   my_geom_text(mapping = aes(vjust = vjust)) + 
   facet_wrap(facets = vars(measure), ncol = 1, scales = "free") + 
-  scale_colour_manual(values = c("pos" = "dodgerblue4", 
-                                 "neg" = "firebrick4"), 
+  scale_colour_manual(values = c("pos" = "cornflowerblue", 
+                                 "neg" = "darkgoldenrod3"), 
                       aesthetics = c("colour", "fill"), 
                       guide = "none") +
   scale_y_continuous(breaks = better_y_axis_breaks)
