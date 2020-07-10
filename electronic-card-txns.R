@@ -22,7 +22,7 @@ conflict_prefer("filter", "dplyr")
 # Load data ----
 
 # Electronic card transactions from Stats NZ Infoshare
-ect_dat <- read_csv(file = here("data/ECT383901_20200512_092945_97.csv"), 
+ect_dat <- read_csv(file = here("data/ECT383901_20200710_121103_86.csv"), 
                     skip = 2, 
                     na = "..") %>%
   pivot_longer(cols = -X1, 
@@ -73,8 +73,8 @@ ect_value_comparison <- ect_dat %>%
                values_to = "value") %>%
   mutate(sign = ifelse(value > 0, "pos", "neg")) %>%
   mutate(value_label = case_when(
-    (measure == "delta") & (value > 0) ~ paste0("+", dollar(value, accuracy = 1), "m"), 
-    (measure == "delta") & (value < 0) ~ paste0(dollar(value, accuracy = 1), "m"), 
+    (measure == "delta") & (value > 0) ~ paste0("+", round(value)), 
+    (measure == "delta") & (value < 0) ~ paste0(round(value)), 
     (measure == "delta_pct") & (value > 0) ~ paste0("+", round(x = value, digits = 0), "%"), 
     (measure == "delta_pct") & (value < 0) ~ paste0(round(x = value, digits = 0), "%")
   )) %>%
@@ -122,8 +122,11 @@ output_chart(chart = ect_value_comparison_chart,
              base_size = 4, 
              panel.spacing.y = unit(4, "pt"), 
              panel.spacing.x = unit(4, "pt"), 
-             plot.margin = margin(0, 0, 0, 0, "pt"), 
-             axis.ticks.x = element_blank())
+             plot.margin = margin(4, 0, 4, 4, "pt"), 
+             axis.ticks.x = element_blank(), 
+             plot.title = element_blank(), 
+             axis.title.x = element_blank(), 
+             axis.title.y = element_blank())
 
 # *****************************************************************************
 
